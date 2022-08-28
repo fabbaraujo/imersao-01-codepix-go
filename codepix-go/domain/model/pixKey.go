@@ -20,7 +20,7 @@ type PixKey struct {
 	Base      `valid:"required"`
 	Kind      string   `json:"kind" valid:"notnull"`
 	Key       string   `json:"key" valid:"notnull"`
-	AccountId string   `json:"account_id" valid:"notnull"`
+	AccountId string   `gorm:"column:account_id;type:uuid;not null" valid:"-"`
 	Account   *Account `valid:"-"`
 	Status    string   `json:"status" valid:"notnull"`
 }
@@ -55,7 +55,7 @@ func NewPixKey(kind string, account *Account, key string) (*PixKey, error) {
 	pixKey.CreatedAt = time.Now()
 
 	err := pixKey.isValid()
-	
+
 	if err != nil {
 		return nil, err
 	}
