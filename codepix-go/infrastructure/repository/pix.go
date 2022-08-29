@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/fabbaraujo/imersao-01-codepix-go/codepix-go/domain/model"
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
 )
 
 type PixKeyRepositoryDb struct {
@@ -41,7 +41,7 @@ func (repository PixKeyRepositoryDb) RegisterKey(pixKey *model.PixKey) (*model.P
 	return pixKey, nil
 }
 
-func (repository PixKeyRepositoryDb) FindKeyById(key string, kind string) (*model.PixKey, error) {
+func (repository PixKeyRepositoryDb) FindKeyByKind(key string, kind string) (*model.PixKey, error) {
 	var pixKey model.PixKey
 
 	repository.Db.Preload("Account.Bank").First(&pixKey, "kind = ? and key = ?", kind, key)
