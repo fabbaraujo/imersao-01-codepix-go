@@ -5,17 +5,20 @@ services:
     build: .
     volumes:
       - .:/go/src
+
   db:
     image: postgres:14.1-alpine
     restart: always
     tty: true
     volumes:
-      - .pgdate:/var/lib/postgresql/data
+      - .pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=codepix
+      - PGDATA=/var/lib/pg_data
     ports:
       - "5432:5432"
+
   pgadmin:
     image: dpage/pgadmin4
     tty: true
